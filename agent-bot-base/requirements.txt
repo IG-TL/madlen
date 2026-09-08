@@ -1,0 +1,17 @@
+fastapi>=0.111
+uvicorn[standard]>=0.30
+pydantic>=2.7
+pyyaml>=6.0
+requests>=2.31    # для integrations/telegram_client.py (Bot API) и integrations/supabase_client.py (REST/PostgREST)
+anthropic>=0.40   # для integrations/claude_real.py — используется, только если задан ANTHROPIC_API_KEY (см. .env.example)
+
+# 21.07.2026: пакет `supabase` (официальный Python-клиент) сознательно НЕ
+# добавляем — Supabase поверх Postgres сам даёт REST API (PostgREST), а
+# requests уже есть в зависимостях. См. integrations/supabase_client.py.
+
+# 22.07.2026: gspread/google-auth — только для sheets_read_check.py (разовая
+# ручная проверка доступа к боевому Google Sheet). НЕ импортируются нигде в
+# самом боте (main.py/orchestrator.py) — если не установлены, бот работает
+# как раньше, падает только сам этот отдельный скрипт при попытке запуска.
+gspread>=6.1
+google-auth>=2.30
